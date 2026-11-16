@@ -247,12 +247,17 @@
     </div>
 
     <div class="divider"></div>
+    <p class="sec-title">记录（自动保存，关掉也不会丢）</p>
     <div class="dlg-foot">
-      <button class="btn" id="exportBtn">导出全文</button>
+      <button class="btn primary" id="shareBtn">分享记录</button>
+      <button class="btn" id="copyBtn">复制全文</button>
+    </div>
+    <div class="dlg-foot">
+      <button class="btn" id="exportBtn">存为 txt 文件</button>
       <button class="btn" id="clearBtn">清空</button>
     </div>
     <div class="dlg-foot">
-      <button class="btn primary" id="saveSettings">保存</button>
+      <button class="btn primary" id="saveSettings">保存设置</button>
     </div>
   </div>
 </dialog>
@@ -290,6 +295,7 @@ const S = {
   startedAt: 0,
   lines: [],        // {t: seconds, text}
   chars: 0,
+  sessionId: Date.now(),
   demo: false,
   demoAbort: null,
 };
@@ -372,19 +378,23 @@ function syncFormFromCfg(){
 }
 
 /* ============ 字幕渲染 ============ */
-function addLine(text, fromDemo){
+function addLine(text){
   text = text.trim();
   if(!text) return;
   const t = Math.floor((Date.now() - S.startedAt) / 1000);
-  S.lines.push({ t, text });
+  const line = { t, text, sid: S.sessionId };
+  S.lines.push(line);
   S.chars += text.length;
   el.wordCount.textContent = S.chars + " 字";
-
-  const { html, hit } = highlight(text);
+  renderLine(line);
+  persistLines();
+}
+function renderLine(line){
+  const { html, hit } = highlight(line.text);
   const div = document.createElement("div");
   div.className = "line" + (hit ? " hit" : "");
   div.innerHTML =
-    (CFG.showTime ? `<time>${fmtStamp(t)}</time>` : "") +
+    (CFG.showTime ? `<time>${fmtStamp(line.t)}</time>` : "") +
     `<p>${html}</p>`;
   if(!CFG.showTime) div.querySelector("time")?.remove();
 
@@ -393,6 +403,28 @@ function addLine(text, fromDemo){
   prune();
   scrollBottom();
   if(hit && CFG.flash) flashOnce();
+}
+function persistLines(){
+  try{
+    localStorage.setItem("tcs_lines", JSON.stringify({
+      v: 1, chars: S.chars, lines: S.lines.slice(-800),
+    }));
+  }catch(e){}
+}
+function restoreLines(){
+  try{
+    const raw = localStorage.getItem("tcs_lines");
+    if(!raw) return;
+    const data = JSON.parse(raw);
+    if(!data || !Array.isArray(data.lines) || !data.lines.length) return;
+    S.lines = data.lines;
+    S.chars = data.chars || S.lines.reduce((n, l) => n + (l.text || "").length, 0);
+    el.wordCount.textContent = S.chars + " 字";
+    S.lines.forEach(renderLine);
+    stickyBottom = true;
+    el.scroll.scrollTop = el.scroll.scrollHeight;
+    setStatus(`已恢复上次的 ${S.lines.length} 句记录`, "");
+  }catch(e){}
 }
 function prune(){
   while(el.lines.children.length > 200) el.lines.removeChild(el.lines.firstChild);
@@ -628,6 +660,7 @@ async function start(){
     S.connecting = false;
     S.running = true;
     S.startedAt = Date.now();
+    S.sessionId = Date.now();
     S.chars = S.lines.length ? S.chars : 0;
     el.mainBtn.textContent = "结束字幕";
     el.mainBtn.classList.add("stop");
@@ -714,6 +747,7 @@ function stop(){
   el.mainBtn.textContent = "开始字幕";
   el.mainBtn.classList.remove("stop");
   setStatus(S.lines.length ? `已结束，共 ${S.lines.length} 句` : "未开始", S.lines.length ? "" : "");
+  if(S.lines.length) toast("记录已自动保存，点右上角 ⚙︎ 可分享", 2600);
 }
 function cleanupSession(){
   S.running = false;
@@ -796,12 +830,56 @@ function commitSettings(){
   closeSettings();
   toast("已保存");
 }
+function buildText(){
+  const groups = [];
+  let cur = null;
+  S.lines.forEach(l => {
+    const sid = l.sid || 0;
+    if(!cur || cur.sid !== sid){ cur = { sid, lines: [] }; groups.push(cur); }
+    cur.lines.push(l);
+  });
+  let out = `潮汕话会议记录\n导出时间：${new Date().toLocaleString("zh-CN")}\n共 ${S.lines.length} 句 / ${S.chars} 字\n`;
+  groups.forEach((g, i) => {
+    out += `\n——— 第 ${i + 1} 段 ———\n`;
+    g.lines.forEach(l => { out += `[${fmtStamp(l.t)}] ${l.text}\n`; });
+  });
+  return out;
+}
+async function shareText(){
+  if(!S.lines.length){ toast("还没有内容"); return; }
+  const text = buildText();
+  if(navigator.share){
+    try{
+      await navigator.share({ title: "潮汕话会议记录", text });
+      return;
+    }catch(e){
+      if(e && (e.name === "AbortError" || e.name === "NotAllowedError")) return;
+    }
+  }
+  await copyText(text);
+  toast("此浏览器不支持分享，已复制到剪贴板");
+}
+async function copyText(text){
+  const content = text || buildText();
+  if(!S.lines.length){ toast("还没有内容"); return; }
+  try{
+    await navigator.clipboard.writeText(content);
+    toast("已复制，去微信或备忘录粘贴");
+    return;
+  }catch(e){}
+  const ta = document.createElement("textarea");
+  ta.value = content;
+  ta.style.position = "fixed";
+  ta.style.opacity = "0";
+  document.body.appendChild(ta);
+  ta.select();
+  try{ document.execCommand("copy"); toast("已复制"); }
+  catch(_){ toast("复制失败，请用「存为 txt 文件」"); }
+  ta.remove();
+}
 function exportText(){
   if(!S.lines.length){ toast("还没有内容"); return; }
-  const head = `潮汕话会议记录  ${new Date().toLocaleString("zh-CN")}\n共 ${S.lines.length} 句 / ${S.chars} 字\n\n`;
-  const body = S.lines.map(l => `[${fmtStamp(l.t)}] ${l.text}`).join("\n");
-  const text = head + body;
-  const blob = new Blob([text], { type: "text/plain;charset=utf-8" });
+  const blob = new Blob([buildText()], { type: "text/plain;charset=utf-8" });
   const a = document.createElement("a");
   a.href = URL.createObjectURL(blob);
   a.download = `潮汕话会议_${new Date().toISOString().slice(0, 16).replace(/[:T]/g, "")}.txt`;
@@ -822,11 +900,15 @@ $("settingsBtn").addEventListener("click", openSettings);
 $("closeSettings").addEventListener("click", closeSettings);
 $("saveSettings").addEventListener("click", commitSettings);
 $("exportBtn").addEventListener("click", exportText);
+$("shareBtn").addEventListener("click", shareText);
+$("copyBtn").addEventListener("click", () => copyText());
 $("clearBtn").addEventListener("click", () => {
   if(!S.lines.length) return;
+  if(!confirm("确定清空所有字幕记录？清空后无法恢复，建议先「分享记录」或「存为 txt」。")) return;
   S.lines = []; S.chars = 0; el.lines.innerHTML = "";
   el.wordCount.textContent = "0 字";
   el.empty.style.display = "";
+  try{ localStorage.removeItem("tcs_lines"); }catch(e){}
   closeSettings();
   toast("已清空");
 });
@@ -851,6 +933,8 @@ syncFormFromCfg();
 if(!window.isSecureContext){
   setStatus("需要 HTTPS 才能使用麦克风", "err");
 }
+// 恢复上次的记录（关掉页面/切后台也不会丢）
+restoreLines();
 // 首次使用引导
 if(!CFG.appId){
   setTimeout(() => {
