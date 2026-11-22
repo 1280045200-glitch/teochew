@@ -20472,7 +20472,7 @@ function render(){
               ${HAZARDS.map((h,i)=>`<option value="${i}">${h.n}</option>`).join('')}
             </select>
           </div>
-          <div class="status ${r.problem?'ok':''}">${r.problem?'✓ 已填写':'○ 待填写'}</div>
+          <div class="status ${r.err?'err':(r.problem?'ok':'')}">${r.err?'✗ '+esc(r.err):(r.problem?'✓ 已填写':'○ 待填写')}</div>
         </div>
       </div>
     </div>`).join('');
@@ -20576,29 +20576,39 @@ function refsToText(refs){
   }).filter(Boolean).join('\n');
 }
 
+function friendlyErr(msg){
+  if(/401|InvalidApiKey|invalid api key|Unauthorized/i.test(msg)) return 'API Key 不正确（401）：请重新完整复制 sk- 开头的 Key，粘贴后点保存';
+  if(/400|model.*not.*found|Model not exist|InvalidParameter/i.test(msg)) return '模型名不对（400）：设置里模型栏只填 qwen-vl-plus（全小写）';
+  if(/403|AccessDenied|Forbidden/i.test(msg)) return '服务未开通或无权限（403）：回百炼控制台首页点「开通服务」';
+  if(/429|Throttling|Ra?t[e] ?limit/i.test(msg)) return '请求被限流（429）：等 1 分钟再试，或账户欠费需充值';
+  if(/Failed to fetch|NetworkError|network/i.test(msg)) return '网络不通：请确认手机联网，且用 Safari（不是微信内打开）';
+  return msg;
+}
+
 async function runAI(targets){
   if(busy) return;
   if(!cfg.key){ $('#cfgModal').classList.add('open'); toast('先填 API Key，或用手动模式'); return; }
   const list=targets.filter(r=>r.img);
   if(!list.length){ toast('没有可识别的照片'); return; }
   busy=true; $('#btnAI').textContent='识别中…';
-  let ok=0,fail=0;
+  let ok=0,fail=0,firstErr='';
   for(const r of list){
     const item=document.querySelector(`.item[data-id="${r.id}"]`);
     if(item) item.querySelector('.status').textContent='◌ 识别中…';
     try{
       const j=await callVision(r.img);
       r.problem=j.problem||''; r.refs=refsToText(j.refs); r.note=j.note||''; r.risk=j.risk||'';
-      ok++;
+      r.err=''; ok++;
     }catch(e){
       fail++; console.warn(e);
-      if(item) item.querySelector('.status').textContent='✗ '+e.message;
-      if(fail===1 && list.length===1) toast(e.message,3500);
+      r.err=friendlyErr(e.message);
+      if(!firstErr) firstErr=r.err;
     }
     save(); render();
   }
   busy=false; $('#btnAI').textContent='🤖 识别全部';
-  toast(`识别完成：成功 ${ok} 张${fail?`，失败 ${fail} 张`:''}`,2600);
+  if(fail) toast('失败原因：'+firstErr,6000);
+  else toast(`识别完成：成功 ${ok} 张`,2600);
 }
 $('#btnAI').onclick=()=>runAI(rows);
 
