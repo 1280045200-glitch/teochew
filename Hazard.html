@@ -165,11 +165,11 @@ td .risk.g{background:#eaf5ea;color:#15803d}
             <option value="custom">自定义（OpenAI 兼容）</option>
           </select>
         </div>
-        <div class="field"><label>模型</label><input id="cModel" placeholder="qwen-vl-plus"></div>
+        <div class="field"><label>模型</label><input id="cModel" placeholder="qwen3-vl-plus"></div>
         <div class="field"><label>API Key</label><input id="cKey" type="password" placeholder="sk-..."></div>
         <div class="field" id="baseRow" style="display:none"><label>接口地址</label><input id="cBase" placeholder="https://.../v1/chat/completions"></div>
         <p style="font-size:11.5px;color:var(--sub);margin-top:8px;line-height:1.7">
-          · 通义：<b>dashscope.console.aliyun.com</b> 开通后创建 API-KEY，模型填 <code>qwen-vl-plus</code>（便宜够用）或 <code>qwen-vl-max</code>（更准）<br>
+          · 通义：<b>dashscope.console.aliyun.com</b> 开通后创建 API-KEY，模型填 <code>qwen3-vl-plus</code>（便宜够用）或 <code>qwen3-vl-max</code>（更准）；老的 qwen-vl-plus 已于 2026-10 下线<br>
           · 豆包：火山方舟控制台开通视觉模型，模型填接入点 ID（ep-开头）<br>
           · Key 只存在本机浏览器里，不会上传到任何服务器；手机丢失或借人使用前请清空。
         </p>
@@ -20375,7 +20375,7 @@ function loadCfg(){
 }
 function toggleBase(){$('#baseRow').style.display = $('#cProvider').value==='custom'?'flex':'none';}
 const PROVIDERS = {
-  dashscope:{url:'https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions', model:'qwen-vl-plus'},
+  dashscope:{url:'https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions', model:'qwen3-vl-plus'},
   ark:{url:'https://ark.cn-beijing.volces.com/api/v3/chat/completions', model:''},
   moonshot:{url:'https://api.moonshot.cn/v1/chat/completions', model:'moonshot-v1-8k-vision-preview'},
   custom:{url:'', model:''}
@@ -20578,7 +20578,7 @@ function refsToText(refs){
 
 function friendlyErr(msg){
   if(/401|InvalidApiKey|invalid api key|Unauthorized/i.test(msg)) return 'API Key 不正确（401）：请重新完整复制 sk- 开头的 Key，粘贴后点保存';
-  if(/400|model.*not.*found|Model not exist|InvalidParameter/i.test(msg)) return '模型名不对（400）：设置里模型栏只填 qwen-vl-plus（全小写）';
+  if(/400|model.*not.*found|Model not exist|InvalidParameter/i.test(msg)) return '模型名不对或已下线（400）：设置里模型填 qwen3-vl-plus（全小写）。服务端原话：'+msg.slice(0,120);
   if(/403|AccessDenied|Forbidden/i.test(msg)) return '服务未开通或无权限（403）：回百炼控制台首页点「开通服务」';
   if(/429|Throttling|Ra?t[e] ?limit/i.test(msg)) return '请求被限流（429）：等 1 分钟再试，或账户欠费需充值';
   if(/Failed to fetch|NetworkError|network/i.test(msg)) return '网络不通：请确认手机联网，且用 Safari（不是微信内打开）';
