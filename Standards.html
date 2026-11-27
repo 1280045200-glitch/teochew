@@ -3,25 +3,29 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
-<title>规范速查 · 施工常用标准目录</title>
+<title>规范速查 V2 · 施工常用标准目录</title>
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <style>
-:root{--bg:#f4f5f7;--card:#fff;--ink:#1f2430;--sub:#8a93a5;--main:#c62828;--main2:#1565c0;--ok:#2e7d32;--warn:#b26a00;--dead:#9e9e9e;--line:#e7e9ee}
+:root{--bg:#f4f5f7;--card:#fff;--ink:#1f2430;--sub:#8a93a5;--main:#c62828;--main2:#1565c0;--ok:#2e7d32;--warn:#b26a00;--law:#5c6bc0;--line:#e7e9ee}
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 body{background:var(--bg);color:var(--ink);font:15px/1.55 -apple-system,"PingFang SC","Microsoft YaHei",sans-serif;padding-bottom:40px}
 .wrap{max-width:680px;margin:0 auto;padding:0 14px}
-header{background:linear-gradient(135deg,#b71c1c,#c62828);color:#fff;padding:calc(env(safe-area-inset-top) + 14px) 14px 14px}
+header{background:linear-gradient(135deg,#b71c1c,#c62828);color:#fff;padding:calc(env(safe-area-inset-top) + 14px) 14px 12px}
 header .wrap{padding:0}
 header h1{font-size:20px}
-header p{font-size:12px;opacity:.9;margin-top:2px}
-.offc{background:var(--card);border-radius:10px;margin:12px 0;padding:10px 12px;font-size:12px;color:var(--sub);box-shadow:0 1px 3px rgba(0,0,0,.05)}
+header h1 span{font-size:10px;background:#fff;color:#b71c1c;padding:2px 7px;border-radius:9px;vertical-align:middle;margin-left:6px;font-weight:700}
+header p{font-size:12px;opacity:.92;margin-top:3px}
+.offc{background:var(--card);border-radius:10px;margin:12px 0;padding:11px 12px;font-size:12px;color:#4a5265;box-shadow:0 1px 3px rgba(0,0,0,.05);line-height:1.7}
 .offc b{color:var(--ink);font-size:13px}
+.offc .row{margin-top:6px}
+.offc .k{font-weight:600;color:var(--main)}
 .offc a{color:var(--main2);text-decoration:none;font-weight:600}
-.searchrow{display:flex;gap:8px;margin:12px 0 8px;position:sticky;top:0;z-index:9}
+.searchrow{display:flex;gap:8px;margin:12px 0 8px}
 .searchrow input{flex:1;border:1px solid var(--line);border-radius:10px;padding:10px 12px;font-size:15px;background:#fff;outline:none}
 .searchrow input:focus{border-color:var(--main)}
 .favbtn{width:46px;border:1px solid var(--line);border-radius:10px;background:#fff;font-size:20px;color:#f0a000}
+.favbtn.on{background:#fff8e1;border-color:#f0a000}
 .tabs{display:flex;gap:8px;overflow-x:auto;padding-bottom:6px;-webkit-overflow-scrolling:touch}
 .tabs::-webkit-scrollbar{display:none}
 .tab{flex:0 0 auto;padding:5px 12px;border-radius:14px;background:#fff;border:1px solid var(--line);font-size:13px;color:var(--sub)}
@@ -29,87 +33,112 @@ header p{font-size:12px;opacity:.9;margin-top:2px}
 .grp{margin-top:14px}
 .grp h2{font-size:13px;color:var(--sub);font-weight:600;margin-bottom:6px}
 .card{background:var(--card);border-radius:10px;padding:11px 12px;margin-bottom:8px;box-shadow:0 1px 3px rgba(0,0,0,.05)}
-.card .r1{display:flex;align-items:baseline;gap:8px}
+.card .r1{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
 .card .no{font-weight:700;font-size:15px;color:var(--main)}
-.card .st{font-size:10px;padding:1px 7px;border-radius:8px;color:#fff;font-weight:600;flex:0 0 auto}
-.st.ok{background:var(--ok)} .st.warn{background:var(--warn)} .st.dead{background:var(--dead)} .st.law{background:#5c6bc0}
+.card .st{font-size:10px;padding:1px 7px;border-radius:8px;color:#fff;font-weight:600}
+.st.ok{background:var(--ok)} .st.warn{background:var(--warn)} .st.law{background:var(--law)}
 .card .name{font-size:14px;margin-top:2px}
-.card .note{font-size:12px;color:var(--warn);margin-top:4px;background:#fff7ec;border-radius:6px;padding:5px 8px}
+.card .note{font-size:12px;color:#8a5a00;margin-top:5px;background:#fff7ec;border-radius:6px;padding:5px 8px}
 .card .ops{display:flex;gap:8px;margin-top:8px}
-.card .ops button{flex:1;border:1px solid var(--line);background:#fff;border-radius:8px;padding:6px 0;font-size:12px;color:var(--main2)}
-.card .ops .star{color:#f0a000;border-color:#f0a00040}
+.card .ops button{flex:1;border:1px solid var(--line);background:#fff;border-radius:8px;padding:7px 0;font-size:12px;color:var(--main2)}
+.card .ops .star{color:#f0a000;border-color:#f0a00055}
 .card .ops .star.on{background:#fff8e1}
-#toast{position:fixed;left:50%;bottom:60px;transform:translateX(-50%);background:rgba(30,35,48,.92);color:#fff;padding:9px 16px;border-radius:20px;font-size:13px;display:none;z-index:99;max-width:86vw;text-align:center}
-.foot{font-size:11px;color:var(--sub);margin-top:20px;line-height:1.7}
+.card .ops button:active{background:#eef3ff}
+#toast{position:fixed;left:50%;bottom:56px;transform:translateX(-50%);background:rgba(30,35,48,.93);color:#fff;padding:10px 16px;border-radius:20px;font-size:13px;display:none;z-index:99;max-width:86vw;text-align:center;line-height:1.5}
+.foot{font-size:11px;color:var(--sub);margin-top:20px;line-height:1.75}
 </style>
 </head>
 <body>
 <header>
   <div class="wrap">
-    <h1>规范速查</h1>
-    <p>施工常用标准目录 · 状态标注 · 官方免费全文入口</p>
+    <h1>规范速查 <span>V2</span></h1>
+    <p>37 本强规全收录 · 119 条常用标准 · 状态已核</p>
   </div>
 </header>
 
 <div class="wrap">
   <div class="offc">
-    <b>官方免费查全文（认准这两个网址）</b><br>
-    · 国家标准全文公开系统 <a href="javascript:go('https://openstd.samr.gov.cn/bzgk/gb/')">openstd.samr.gov.cn</a>：强制性国标可<b>免费在线阅读+下载全文</b>；推荐性国标（非采标）可免费在线阅读<br>
-    · 全国标准信息公共服务平台 <a href="javascript:go('https://std.samr.gov.cn/')">std.samr.gov.cn</a>：全部国标/行业标准（JGJ、RF 等）题录与状态查询<br>
-    · 行业标准全文可在 <a href="javascript:go('https://www.mohurd.gov.cn/')">住建部官网</a>「标准定额」栏目查发布公告及公开文本<br>
-    · 本工具只管<b>标准号、名称、现行状态</b>；全文请以官方渠道为准
+    <b>为什么有些标准点进去看不到全文？</b>
+    <div class="row"><span class="k">① 市场监管总局的国标</span>（安全帽、安全带、安全网、消防应急灯具等）→ <a href="javascript:go('https://openstd.samr.gov.cn/bzgk/gb/')">国家标准全文公开系统</a>：强制性国标可<b>免费在线阅读 + 下载 PDF</b></div>
+    <div class="row"><span class="k">② 住建部的工程建设标准</span>（GB 550xx、GB 50xxx、JGJ、CJJ）→ <b>不在国标库</b>，住建部只公开部分文本，多数要买正版。本工具给官方入口 + 编号复制</div>
+    <div class="row"><span class="k">③ 查状态、替代关系</span> → <a href="javascript:go('https://std.samr.gov.cn/')">全国标准信息公共服务平台</a>；行标备案 → <a href="javascript:go('https://hbba.sacinfo.org.cn/')">行业标准信息服务平台</a></div>
+    <div class="row" style="color:var(--sub)">按钮：<b>「看全文」</b>= 直接打开国标库该标准；<b>「去官方查」</b>= 复制编号并打开住建部标准定额栏目，粘贴搜索</div>
   </div>
 
   <div class="searchrow">
-    <input id="q" placeholder="搜索标准号或名称，如：50303 / 临时用电">
+    <input id="q" placeholder="搜标准号或名称：50303 / 脚手架 / 防火">
     <button class="favbtn" id="favTab" onclick="toggleFav()">★</button>
   </div>
   <div class="tabs" id="tabs"></div>
   <div id="list"></div>
 
   <div class="foot">
-    数据说明：目录于 2026-11-26 整理，重点状态均依据官方公告核实（JGJ/T 46-2024 依据住建部公告 2024 年第 152 号；JGJ/T 231-2021 依据 2021 年第 113 号；GB 5725-2025《坠落防护 安全网》依据国家标准公告 2025 年第 22 号）。标注「部分废止」的规范，其废止的强制性条文由对应通用规范替代，标准其余部分仍现行。本工具不收录条文全文，条文引用请以官方公开文本为准。
+    数据说明：2026-11-27 整理。37 本强制性工程建设规范的编号名称依据住建部公告清单（GB 55001～55037）；JGJ/T 46-2024、JGJ/T 128-2019、JGJ/T 231-2021、GB 5725-2025、住建部令第 60 号等版本变化均已按官方公告核实。<br>
+    标注「注意版本」= 该标准有强条被通用规范替代，或其新版已发布/旧版已废止，引用前务必核对。<br>
+    本工具只保证<b>标准号、名称、状态</b>准确，不提供条文全文——条文引用请以官方公开文本或正版标准为准。
   </div>
 </div>
 <div id="toast"></div>
 
 <script>
-/* 数据字段：no=标准号 t=名称 c=分类 s=状态(ok现行/warn部分废止提示/law法规) note=备注 */
 const DATA=[
-/* ===== 全文强制通用规范 ===== */
-{n:'GB 55037-2022',t:'建筑防火通用规范',c:'强制规范',s:'ok',note:'全文强制。替代 GB 50016 等规范中被废止的防火设计强条'},
-{n:'GB 55036-2022',t:'消防设施通用规范',c:'强制规范',s:'ok',note:'全文强制'},
+/* ======== 37 本强制性工程建设规范（住建部公告清单） ======== */
+{n:'GB 55037-2022',t:'建筑防火通用规范',c:'强制规范',s:'ok',note:'2023-06-01 实施。废止 GB 50016 等 30 余本规范的防火强条'},
+{n:'GB 55036-2022',t:'消防设施通用规范',c:'强制规范',s:'ok',note:'2023-03-01 实施，消防水、报警、防排烟强条的总纲'},
+{n:'GB 55034-2022',t:'建筑与市政施工现场安全卫生与职业健康通用规范',c:'强制规范',s:'ok',note:'施工现场安全类全文强制，与 JGJ 59 配套使用'},
+{n:'GB 55032-2022',t:'建筑与市政工程施工质量控制通用规范',c:'强制规范',s:'ok',note:'施工质量控制总纲，验收资料引用频率极高'},
+{n:'GB 55023-2022',t:'施工脚手架通用规范',c:'强制规范',s:'ok',note:'废止 JGJ 130、JGJ 166、JGJ 202 等脚手架规范中的强条'},
 {n:'GB 55024-2022',t:'建筑电气与智能化通用规范',c:'强制规范',s:'ok',note:'GB 50303-2015 中 17 条强条自其施行起废止'},
 {n:'GB 55020-2021',t:'建筑给水排水与节水通用规范',c:'强制规范',s:'ok',note:'GB 50242-2002 中 7 条强条自其施行起废止'},
 {n:'GB 55030-2022',t:'建筑与市政工程防水通用规范',c:'强制规范',s:'ok'},
-{n:'GB 55034-2022',t:'建筑与市政施工现场安全卫生与职业健康通用规范',c:'强制规范',s:'ok',note:'施工现场安全管理类全文强制规范'},
+{n:'GB 55019-2021',t:'建筑与市政工程无障碍通用规范',c:'强制规范',s:'ok'},
+{n:'GB 55016-2021',t:'建筑环境通用规范',c:'强制规范',s:'ok'},
+{n:'GB 55015-2021',t:'建筑节能与可再生能源利用通用规范',c:'强制规范',s:'ok'},
+{n:'GB 55031-2022',t:'民用建筑通用规范',c:'强制规范',s:'ok'},
 {n:'GB 55001-2021',t:'工程结构通用规范',c:'强制规范',s:'ok'},
 {n:'GB 55002-2021',t:'建筑与市政工程抗震通用规范',c:'强制规范',s:'ok'},
 {n:'GB 55003-2021',t:'建筑与市政地基基础通用规范',c:'强制规范',s:'ok'},
-{n:'GB 55008-2021',t:'钢结构通用规范',c:'强制规范',s:'ok'},
+{n:'GB 55004-2021',t:'组合结构通用规范',c:'强制规范',s:'ok'},
+{n:'GB 55005-2021',t:'木结构通用规范',c:'强制规范',s:'ok'},
+{n:'GB 55006-2021',t:'钢结构通用规范',c:'强制规范',s:'ok'},
+{n:'GB 55007-2021',t:'砌体结构通用规范',c:'强制规范',s:'ok'},
+{n:'GB 55008-2021',t:'混凝土结构通用规范',c:'强制规范',s:'ok',note:'常见误引：钢结构是 55006，混凝土是 55008'},
 {n:'GB 55009-2021',t:'燃气工程项目规范',c:'强制规范',s:'ok'},
-{n:'GB 55015-2021',t:'建筑节能与可再生能源利用通用规范',c:'强制规范',s:'ok'},
+{n:'GB 55010-2021',t:'供热工程项目规范',c:'强制规范',s:'ok'},
+{n:'GB 55011-2021',t:'城市道路交通工程项目规范',c:'强制规范',s:'ok'},
+{n:'GB 55012-2021',t:'生活垃圾处理处置工程项目规范',c:'强制规范',s:'ok'},
+{n:'GB 55013-2021',t:'市容环卫工程项目规范',c:'强制规范',s:'ok'},
+{n:'GB 55014-2021',t:'园林绿化工程项目规范',c:'强制规范',s:'ok'},
+{n:'GB 55017-2021',t:'工程勘察通用规范',c:'强制规范',s:'ok'},
+{n:'GB 55018-2021',t:'工程测量通用规范',c:'强制规范',s:'ok'},
 {n:'GB 55021-2021',t:'既有建筑鉴定与加固通用规范',c:'强制规范',s:'ok'},
-{n:'GB 55031-2022',t:'民用建筑通用规范',c:'强制规范',s:'ok'},
-/* ===== 设计与消防 ===== */
-{n:'GB 50016-2014（2018年版）',t:'建筑设计防火规范',c:'设计与消防',s:'warn',note:'部分强条已被 GB 55037-2022 废止，其余继续有效；引用条文前先查 55037'},
+{n:'GB 55022-2021',t:'既有建筑维护与改造通用规范',c:'强制规范',s:'ok'},
+{n:'GB 55025-2022',t:'宿舍、旅馆建筑项目规范',c:'强制规范',s:'ok'},
+{n:'GB 55026-2022',t:'城市给水工程项目规范',c:'强制规范',s:'ok'},
+{n:'GB 55027-2022',t:'城乡排水工程项目规范',c:'强制规范',s:'ok'},
+{n:'GB 55028-2022',t:'特殊设施工程项目规范',c:'强制规范',s:'ok'},
+{n:'GB 55029-2022',t:'安全防范工程通用规范',c:'强制规范',s:'ok'},
+{n:'GB 55033-2022',t:'城市轨道交通工程项目规范',c:'强制规范',s:'ok'},
+{n:'GB 55035-2023',t:'城乡历史文化保护利用项目规范',c:'强制规范',s:'ok'},
+/* ======== 设计与消防 ======== */
+{n:'GB 50016-2014（2018年版）',t:'建筑设计防火规范',c:'设计与消防',s:'warn',note:'大量强条已被 GB 55037-2022 废止，引用前先查 55037 的废止清单'},
 {n:'GB 50084-2017',t:'自动喷水灭火系统设计规范',c:'设计与消防',s:'ok'},
 {n:'GB 50116-2013',t:'火灾自动报警系统设计规范',c:'设计与消防',s:'ok'},
 {n:'GB 50974-2014',t:'消防给水及消火栓系统技术规范',c:'设计与消防',s:'ok'},
 {n:'GB 51251-2017',t:'建筑防烟排烟系统技术标准',c:'设计与消防',s:'ok'},
-{n:'GB 50067-2014',t:'汽车库、修车库、停车场设计防火规范',c:'设计与消防',s:'ok'},
-{n:'GB 50222-2017',t:'建筑内部装修设计防火规范',c:'设计与消防',s:'ok'},
-{n:'GB/T 50720-2011',t:'建设工程施工现场消防安全技术规范',c:'设计与消防',s:'ok',note:'2025 年局部修订；注意由「GB」改为「GB/T」'},
+{n:'GB 50067-2014',t:'汽车库、修车库、停车场设计防火规范',c:'设计与消防',s:'warn',note:'部分强条已被 GB 55037-2022 废止'},
+{n:'GB 50222-2017',t:'建筑内部装修设计防火规范',c:'设计与消防',s:'warn',note:'部分强条已被 GB 55037-2022 废止'},
+{n:'GB/T 50720-2011',t:'建设工程施工现场消防安全技术规范',c:'设计与消防',s:'ok',note:'2025 年局部修订；编号已由 GB 改为 GB/T'},
 {n:'GB 51309-2018',t:'消防应急照明和疏散指示系统技术标准',c:'设计与消防',s:'ok'},
-{n:'GB 17945-2024',t:'消防应急照明和疏散指示系统',c:'设计与消防',s:'ok',note:'产品标准新版，替代 GB 17945-2010；标志图形以新版附录为准'},
-/* ===== 施工验收 · 给排水 ===== */
+{n:'GB 17945-2024',t:'消防应急照明和疏散指示系统',c:'设计与消防',s:'ok',note:'产品标准新版，替代 GB 17945-2010'},
+/* ======== 给排水验收 ======== */
 {n:'GB 50242-2002',t:'建筑给水排水及采暖工程施工质量验收规范',c:'给排水验收',s:'warn',note:'7 条强条已由 GB 55020-2021 替代，其余现行'},
 {n:'GB 50268-2008',t:'给水排水管道工程施工及验收规范',c:'给排水验收',s:'ok'},
 {n:'GB 50141-2008',t:'给水排水构筑物工程施工及验收规范',c:'给排水验收',s:'ok'},
 {n:'GB 50166-2019',t:'火灾自动报警系统施工及验收标准',c:'给排水验收',s:'ok'},
 {n:'GB 50261-2017',t:'自动喷水灭火系统施工及验收规范',c:'给排水验收',s:'ok'},
 {n:'GB 50263-2007',t:'气体灭火系统施工及验收规范',c:'给排水验收',s:'ok'},
-/* ===== 施工验收 · 电气 ===== */
+/* ======== 电气验收 ======== */
 {n:'GB 50303-2015',t:'建筑电气工程施工质量验收规范',c:'电气验收',s:'warn',note:'17 条强条已由 GB 55024-2022 替代，其余现行'},
 {n:'GB 51348-2019',t:'民用建筑电气设计标准',c:'电气验收',s:'ok'},
 {n:'GB 50057-2010',t:'建筑物防雷设计规范',c:'电气验收',s:'ok'},
@@ -121,14 +150,14 @@ const DATA=[
 {n:'GB 50254-2014',t:'电气装置安装工程低压电器施工及验收规范',c:'电气验收',s:'ok'},
 {n:'GB 50311-2016',t:'综合布线系统工程设计规范',c:'电气验收',s:'ok'},
 {n:'GB/T 50312-2016',t:'综合布线系统工程验收规范',c:'电气验收',s:'ok'},
-{n:'GB 50194-2014',t:'建设工程施工现场供用电安全规范',c:'电气验收',s:'ok',note:'与 JGJ/T 46-2024 配套使用'},
-/* ===== 施工验收 · 暖通 ===== */
+{n:'GB 50194-2014',t:'建设工程施工现场供用电安全规范',c:'电气验收',s:'ok',note:'与 JGJ/T 46-2024 配套'},
+/* ======== 暖通验收 ======== */
 {n:'GB 50243-2016',t:'通风与空调工程施工质量验收规范',c:'暖通验收',s:'ok'},
 {n:'GB 50738-2011',t:'通风与空调工程施工规范',c:'暖通验收',s:'ok'},
 {n:'GB 50736-2012',t:'民用建筑供暖通风与空气调节设计规范',c:'暖通验收',s:'ok'},
 {n:'GB 50189-2015',t:'公共建筑节能设计标准',c:'暖通验收',s:'ok'},
-/* ===== 结构 · 装饰 · 防水 ===== */
-{n:'GB 50300-2013',t:'建筑工程施工质量验收统一标准',c:'结构装饰',s:'ok',note:'验收划分、程序和组织总纲，配套各分部验收规范使用'},
+/* ======== 结构装饰 ======== */
+{n:'GB 50300-2013',t:'建筑工程施工质量验收统一标准',c:'结构装饰',s:'ok',note:'验收划分、程序和组织总纲'},
 {n:'GB 50204-2015',t:'混凝土结构工程施工质量验收规范',c:'结构装饰',s:'ok'},
 {n:'GB 50666-2011',t:'混凝土结构工程施工规范',c:'结构装饰',s:'ok'},
 {n:'GB 50203-2011',t:'砌体结构工程施工质量验收规范',c:'结构装饰',s:'ok'},
@@ -144,9 +173,9 @@ const DATA=[
 {n:'JGJ 18-2012',t:'钢筋焊接及验收规程',c:'结构装饰',s:'ok'},
 {n:'JGJ 107-2016',t:'钢筋机械连接技术规程',c:'结构装饰',s:'ok'},
 {n:'GB 50164-2011',t:'混凝土质量控制标准',c:'结构装饰',s:'ok'},
-/* ===== 施工安全 ===== */
-{n:'JGJ/T 46-2024',t:'建筑与市政工程施工现场临时用电安全技术标准',c:'施工安全',s:'warn',note:'⚠ 2025-01-01 实施，原 JGJ 46-2005 已同时废止——现场资料引用 05 版的都要改'},
-{n:'JGJ 59-2011',t:'建筑施工安全检查标准',c:'施工安全',s:'ok',note:'JGJ 59 打分表用'},
+/* ======== 施工安全 ======== */
+{n:'JGJ/T 46-2024',t:'建筑与市政工程施工现场临时用电安全技术标准',c:'施工安全',s:'warn',note:'⚠ 2025-01-01 实施，JGJ 46-2005 已同时废止——现场资料引 05 版的都要改'},
+{n:'JGJ 59-2011',t:'建筑施工安全检查标准',c:'施工安全',s:'ok'},
 {n:'JGJ 80-2016',t:'建筑施工高处作业安全技术规范',c:'施工安全',s:'ok'},
 {n:'JGJ 120-2012',t:'建筑基坑支护技术规程',c:'施工安全',s:'ok'},
 {n:'JGJ 311-2013',t:'建筑深基坑工程施工安全技术规范',c:'施工安全',s:'ok'},
@@ -158,12 +187,12 @@ const DATA=[
 {n:'JGJ 305-2013',t:'建筑施工升降设备设施检验标准',c:'施工安全',s:'ok'},
 {n:'JGJ/T 77-2010',t:'施工企业安全生产评价标准',c:'施工安全',s:'ok'},
 {n:'JGJ/T 429-2018',t:'建筑施工易发事故防治安全标准',c:'施工安全',s:'ok'},
-/* ===== 脚手架 · 机械 · 防护用品 ===== */
-{n:'JGJ 130-2011',t:'建筑施工扣件式钢管脚手架安全技术规范',c:'脚手架机械',s:'ok'},
-{n:'JGJ/T 128-2019',t:'建筑施工门式钢管脚手架安全技术标准',c:'脚手架机械',s:'warn',note:'替代 JGJ 128-2010——引用 2010 版是错的'},
-{n:'JGJ 166-2016',t:'建筑施工碗扣式钢管脚手架安全技术规范',c:'脚手架机械',s:'warn',note:'替代 JGJ 166-2008'},
+/* ======== 脚手架机械 ======== */
+{n:'JGJ 130-2011',t:'建筑施工扣件式钢管脚手架安全技术规范',c:'脚手架机械',s:'warn',note:'16 条强条已被 GB 55023-2022 废止，其余现行'},
+{n:'JGJ/T 128-2019',t:'建筑施工门式钢管脚手架安全技术标准',c:'脚手架机械',s:'warn',note:'替代 JGJ 128-2010——还在引 2010 版就是错的'},
+{n:'JGJ 166-2016',t:'建筑施工碗扣式钢管脚手架安全技术规范',c:'脚手架机械',s:'warn',note:'替代 2008 版；4 条强条已被 GB 55023-2022 废止'},
 {n:'JGJ/T 231-2021',t:'建筑施工承插型盘扣式钢管脚手架安全技术标准',c:'脚手架机械',s:'warn',note:'2021-10-01 实施，替代 JGJ 231-2010（旧名称是「支架安全技术规程」）'},
-{n:'JGJ 202-2010',t:'建筑施工工具式脚手架安全技术规范',c:'脚手架机械',s:'ok'},
+{n:'JGJ 202-2010',t:'建筑施工工具式脚手架安全技术规范',c:'脚手架机械',s:'warn',note:'19 条强条已被 GB 55023-2022 废止'},
 {n:'JGJ 33-2012',t:'建筑机械使用安全技术规程',c:'脚手架机械',s:'ok'},
 {n:'JGJ 196-2010',t:'建筑施工塔式起重机安装、使用、拆卸安全技术规程',c:'脚手架机械',s:'ok'},
 {n:'JGJ 215-2010',t:'建筑施工升降机安装、使用、拆卸安全技术规程',c:'脚手架机械',s:'ok'},
@@ -171,29 +200,31 @@ const DATA=[
 {n:'GB 2811-2019',t:'头部防护 安全帽',c:'脚手架机械',s:'ok'},
 {n:'GB 6095-2021',t:'坠落防护 安全带',c:'脚手架机械',s:'ok'},
 {n:'GB 39800.1-2020',t:'个体防护装备配备规范 第1部分：总则',c:'脚手架机械',s:'ok'},
-/* ===== 法规 · 部令 ===== */
+/* ======== 法规部令 ======== */
 {n:'《安全生产法》',t:'中华人民共和国安全生产法（2021年修正）',c:'法规部令',s:'law',note:'危险作业相关条款为第 43 条'},
 {n:'《建筑法》',t:'中华人民共和国建筑法（2019年修正）',c:'法规部令',s:'law'},
 {n:'《消防法》',t:'中华人民共和国消防法（2021年修正）',c:'法规部令',s:'law'},
 {n:'国务院令第393号',t:'建设工程安全生产管理条例',c:'法规部令',s:'law'},
 {n:'国务院令第279号',t:'建设工程质量管理条例',c:'法规部令',s:'law'},
-{n:'住建部令第37号',t:'危险性较大的分部分项工程安全管理规定',c:'法规部令',s:'law',note:'配套实施细则见建办质〔2018〕31 号（危大工程范围、专项方案和论证要求）'},
-{n:'住建部令第60号',t:'建筑施工特种作业人员管理规定',c:'法规部令',s:'warn',note:'2026-06-01 施行，替代建质〔2008〕75 号（含 6 个月实习期、连续作业不超 4h 等新要求）'},
-/* ===== 人防 · 监理监测 ===== */
+{n:'住建部令第37号',t:'危险性较大的分部分项工程安全管理规定',c:'法规部令',s:'law',note:'配套建办质〔2018〕31 号（危大范围、专项方案与论证要求）'},
+{n:'住建部令第60号',t:'建筑施工特种作业人员管理规定',c:'法规部令',s:'warn',note:'2026-06-01 施行，替代建质〔2008〕75 号（含 6 个月实习期、连续作业≤4h）'},
+/* ======== 人防监理 ======== */
 {n:'GB 50134-2004',t:'人民防空工程施工及验收规范',c:'人防监理',s:'ok'},
 {n:'GB 50038-2005',t:'人民防空地下室设计规范',c:'人防监理',s:'ok'},
 {n:'GB/T 50319-2013',t:'建设工程监理规范',c:'人防监理',s:'ok'},
 {n:'GB 50497-2019',t:'建筑基坑工程监测技术标准',c:'人防监理',s:'ok'}
 ];
-/* RFJ 人防行业标准：可在 std.samr.gov.cn 按行业代码 RF 检索 */
-const CATS=['常用收藏','全部','强制规范','设计与消防','给排水验收','电气验收','暖通验收','结构装饰','施工安全','脚手架机械','法规部令','人防监理'];
-const OFFICIAL={gb:'https://openstd.samr.gov.cn/bzgk/gb/',hb:'https://hbba.sacinfo.org.cn/',std:'https://std.samr.gov.cn/'};
-let cur='全部', favs=[], favOnly=false;
+const CATS=['全部','强制规范','设计与消防','给排水验收','电气验收','暖通验收','结构装饰','施工安全','脚手架机械','法规部令','人防监理'];
+const OPENSTD='https://openstd.samr.gov.cn/bzgk/gb/std_list?p.p1=0&p.p90=cou_all&p.p91=descr&p.p2=';
+const MOHURD='https://www.mohurd.gov.cn/gongkai/zc/wjk/index.html';
+const FLK='https://flk.npc.gov.cn/';
+let cur='全部',favs=[],favOnly=false;
 try{favs=JSON.parse(localStorage.getItem('std_favs')||'[]')}catch(e){}
 const $=s=>document.querySelector(s);
-
-function toast(m){const t=$('#toast');t.textContent=m;t.style.display='block';clearTimeout(t._x);t._x=setTimeout(()=>t.style.display='none',2200)}
-function isGB(no){return /^(GB|GB\/T)/.test(no)}
+function cleanNo(n){return n.replace(/[（）()]/g,'').replace(/\s+/g,'')}
+function isLaw(n){return /^《/.test(n)||/号$/.test(n)}
+function isBuild(n){return /^(GB\s?5[05]|GB\/T\s?5[05]|JGJ|CJJ)/.test(n)}
+function toast(m){const t=$('#toast');t.textContent=m;t.style.display='block';clearTimeout(t._x);t._x=setTimeout(()=>t.style.display='none',2800)}
 function stTag(s){return s==='ok'?'<span class="st ok">现行</span>':s==='warn'?'<span class="st warn">注意版本</span>':'<span class="st law">法规</span>'}
 function match(d,kw){
   if(favOnly&&!favs.includes(d.n))return false;
@@ -204,22 +235,24 @@ function match(d,kw){
 }
 function render(){
   const kw=$('#q').value.trim();
-  const groups={};
-  DATA.forEach(d=>{if(match(d,kw)){(groups[d.c]=groups[d.c]||[]).push(d)}});
+  const g={};
+  DATA.forEach(d=>{if(match(d,kw)){(g[d.c]=g[d.c]||[]).push(d)}});
+  const keys=Object.keys(g);
   let h='';
-  const keys=Object.keys(groups);
-  if(!keys.length){h='<div class="card" style="text-align:center;color:var(--sub)">没有匹配的标准</div>'}
+  if(!keys.length)h='<div class="card" style="text-align:center;color:var(--sub)">没有匹配的标准</div>';
   keys.forEach(k=>{
-    h+=`<div class="grp"><h2>${k} · ${groups[k].length} 项</h2>`;
-    groups[k].forEach(d=>{
-      const on=favs.includes(d.n);
+    h+=`<div class="grp"><h2>${k} · ${g[k].length} 项</h2>`;
+    g[k].forEach(d=>{
+      const on=favs.includes(d.n), law=isLaw(d.n), build=isBuild(d.n);
+      const label=law?'复制名称':(build?'去官方查':'看全文');
+      const nn=d.n.replace(/'/g,"\\'");
       h+=`<div class="card"><div class="r1"><span class="no">${d.n}</span>${stTag(d.s)}</div>
       <div class="name">${d.t}</div>
       ${d.note?`<div class="note">${d.note}</div>`:''}
       <div class="ops">
-        <button class="star ${on?'on':''}" onclick="togFav('${d.n.replace(/'/g,"\\'")}')">★ ${on?'已收藏':'收藏'}</button>
-        <button onclick="copyNo('${d.n.replace(/'/g,"\\'")}')">复制编号</button>
-        <button onclick="full('${d.n.replace(/'/g,"\\'")}')">查全文</button>
+        <button class="star ${on?'on':''}" onclick="togFav('${nn}')">★ ${on?'已收藏':'收藏'}</button>
+        <button onclick="copyNo('${nn}')">复制编号</button>
+        <button onclick="full('${nn}')">${label}</button>
       </div></div>`;
     });
     h+='</div>';
@@ -227,21 +260,29 @@ function render(){
   $('#list').innerHTML=h;
 }
 function buildTabs(){
-  const list=favOnly?['常用收藏']:CATS;
-  $('#tabs').innerHTML=list.map(c=>`<span class="tab ${(!favOnly&&c===cur)?'on':''}" onclick="pick('${c}')">${c==='全部'?'全部':c}</span>`).join('');
+  $('#tabs').innerHTML=CATS.map(c=>`<span class="tab ${(!favOnly&&c===cur)?'on':''}" onclick="pick('${c}')">${c}</span>`).join('')
+    +(favOnly?'<span class="tab on">★ 我的收藏</span>':'');
 }
-function pick(c){cur=c;favOnly=false;buildTabs();render();window.scrollTo(0,0)}
-function toggleFav(){favOnly=!favOnly;buildTabs();render()}
+function pick(c){cur=c;favOnly=false;$('#favTab').classList.remove('on');buildTabs();render();window.scrollTo(0,0)}
+function toggleFav(){favOnly=!favOnly;$('#favTab').classList.toggle('on',favOnly);buildTabs();render()}
 function togFav(n){const i=favs.indexOf(n);i<0?favs.push(n):favs.splice(i,1);localStorage.setItem('std_favs',JSON.stringify(favs));render()}
-function copyNo(n){
-  const done=()=>toast('已复制：'+n);
-  if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(n).then(done).catch(()=>fb())}else fb();
-  function fb(){const i=document.createElement('input');i.value=n;document.body.appendChild(i);i.select();document.execCommand('copy');i.remove();done()}
+function copyNo(n,cb){
+  const txt=cleanNo(n);
+  const done=()=>{toast('已复制：'+txt);cb&&cb()};
+  if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(txt).then(done).catch(fb)}else fb();
+  function fb(){const i=document.createElement('input');i.value=txt;document.body.appendChild(i);i.select();try{document.execCommand('copy')}catch(e){}i.remove();done()}
 }
 function full(n){
-  copyNo(n);
-  setTimeout(()=>{window.open(isGB(n)?OFFICIAL.gb:OFFICIAL.hb,'_blank')},300);
-  toast('编号已复制，粘贴到官方检索框即可');
+  if(isLaw(n)){
+    copyNo(n);setTimeout(()=>window.open(FLK,'_blank'),250);
+    toast('已复制名称，在国家法律法规数据库搜索框粘贴即可');return;
+  }
+  if(isBuild(n)){
+    copyNo(n,()=>{window.open(MOHURD,'_blank')});
+    toast('工程建设标准不在国标库；编号已复制，在住建部「标准定额」栏目搜索');return;
+  }
+  window.open(OPENSTD+encodeURIComponent(cleanNo(n)),'_blank');
+  toast('已跳转国标库，点结果行「查看详细」即可在线阅读/下载');
 }
 function go(u){window.open(u,'_blank')}
 buildTabs();render();
