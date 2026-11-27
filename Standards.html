@@ -60,9 +60,9 @@ header p{font-size:12px;opacity:.92;margin-top:3px}
   <div class="offc">
     <b>为什么有些标准点进去看不到全文？</b>
     <div class="row"><span class="k">① 市场监管总局的国标</span>（安全帽、安全带、安全网、消防应急灯具等）→ <a href="javascript:go('https://openstd.samr.gov.cn/bzgk/gb/')">国家标准全文公开系统</a>：强制性国标可<b>免费在线阅读 + 下载 PDF</b></div>
-    <div class="row"><span class="k">② 住建部的工程建设标准</span>（GB 550xx、GB 50xxx、JGJ、CJJ）→ <b>不在国标库</b>，住建部只公开部分文本，多数要买正版。本工具给官方入口 + 编号复制</div>
+    <div class="row"><span class="k">② 住建部的工程建设标准</span>（GB 550xx、GB 50xxx、GB 51xxx、JGJ、CJJ）→ <b>不在国标库</b>；官方全文渠道是住建部标定所主办的 <a href="javascript:go('https://www.ccsn.org.cn/')">工程建设标准化信息网</a>（公告页带「查看标准全文/附件下载」）。点「去官方查」直接帮你搜到那一页</div>
     <div class="row"><span class="k">③ 查状态、替代关系</span> → <a href="javascript:go('https://std.samr.gov.cn/')">全国标准信息公共服务平台</a>；行标备案 → <a href="javascript:go('https://hbba.sacinfo.org.cn/')">行业标准信息服务平台</a></div>
-    <div class="row" style="color:var(--sub)">按钮：<b>「看全文」</b>= 直接打开国标库该标准；<b>「去官方查」</b>= 复制编号并打开住建部标准定额栏目，粘贴搜索</div>
+    <div class="row" style="color:var(--sub)">按钮：<b>「看全文」</b>= 直接打开国标库该标准（可在线阅读/下载）；<b>「去官方查」</b>= 自动搜出该标准在住建部官网或工程建设标准化信息网的公告页，公告页内通常有全文附件</div>
   </div>
 
   <div class="searchrow">
@@ -216,14 +216,15 @@ const DATA=[
 ];
 const CATS=['全部','强制规范','设计与消防','给排水验收','电气验收','暖通验收','结构装饰','施工安全','脚手架机械','法规部令','人防监理'];
 const OPENSTD='https://openstd.samr.gov.cn/bzgk/gb/std_list?p.p1=0&p.p90=cou_all&p.p91=descr&p.p2=';
-const MOHURD='https://www.mohurd.gov.cn/gongkai/zc/wjk/index.html';
+const BING='https://cn.bing.com/search?q=';
 const FLK='https://flk.npc.gov.cn/';
 let cur='全部',favs=[],favOnly=false;
 try{favs=JSON.parse(localStorage.getItem('std_favs')||'[]')}catch(e){}
 const $=s=>document.querySelector(s);
 function cleanNo(n){return n.replace(/[（）()]/g,'').replace(/\s+/g,'')}
+function searchNo(n){return cleanNo(n).replace(/-\d{4}$/,'')}
 function isLaw(n){return /^《/.test(n)||/号$/.test(n)}
-function isBuild(n){return /^(GB\s?5[05]|GB\/T\s?5[05]|JGJ|CJJ)/.test(n)}
+function isBuild(n){return /^(GB(\/T)?\s?5\d{4}|JGJ|CJJ|DBJ)/.test(n)}
 function toast(m){const t=$('#toast');t.textContent=m;t.style.display='block';clearTimeout(t._x);t._x=setTimeout(()=>t.style.display='none',2800)}
 function stTag(s){return s==='ok'?'<span class="st ok">现行</span>':s==='warn'?'<span class="st warn">注意版本</span>':'<span class="st law">法规</span>'}
 function match(d,kw){
@@ -273,15 +274,16 @@ function copyNo(n,cb){
   function fb(){const i=document.createElement('input');i.value=txt;document.body.appendChild(i);i.select();try{document.execCommand('copy')}catch(e){}i.remove();done()}
 }
 function full(n){
+  const sn=searchNo(n);
   if(isLaw(n)){
     copyNo(n);setTimeout(()=>window.open(FLK,'_blank'),250);
     toast('已复制名称，在国家法律法规数据库搜索框粘贴即可');return;
   }
   if(isBuild(n)){
-    copyNo(n,()=>{window.open(MOHURD,'_blank')});
-    toast('工程建设标准不在国标库；编号已复制，在住建部「标准定额」栏目搜索');return;
+    copyNo(n,()=>{window.open(BING+encodeURIComponent(sn+' (site:ccsn.org.cn OR site:mohurd.gov.cn)'),'_blank')});
+    toast('已复制编号；点第一条官方公告，页内有「查看标准全文/附件下载」');return;
   }
-  window.open(OPENSTD+encodeURIComponent(cleanNo(n)),'_blank');
+  window.open(OPENSTD+encodeURIComponent(sn),'_blank');
   toast('已跳转国标库，点结果行「查看详细」即可在线阅读/下载');
 }
 function go(u){window.open(u,'_blank')}
